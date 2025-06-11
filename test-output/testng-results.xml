@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-06-11T22:55:01 IST" name="Default suite" finished-at="2025-06-11T22:56:06 IST" duration-ms="65151">
+    <groups>
+    </groups>
+    <test started-at="2025-06-11T22:55:01 IST" name="Default test" finished-at="2025-06-11T22:56:06 IST" duration-ms="65151">
+      <class name="CTA.AmityOnline.MainClass">
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:CTA.AmityOnline.MainClass@4ee203eb]" started-at="2025-06-11T22:55:01 IST" name="setupReport" finished-at="2025-06-11T22:55:02 IST" duration-ms="1023" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupReport -->
+        <test-method is-config="true" signature="LaunchBrowser()[pri:0, instance:CTA.AmityOnline.MainClass@4ee203eb]" started-at="2025-06-11T22:55:02 IST" name="LaunchBrowser" finished-at="2025-06-11T22:55:14 IST" duration-ms="11702" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- LaunchBrowser -->
+        <test-method signature="Open_form_MBA_India_International()[pri:5, instance:CTA.AmityOnline.MainClass@4ee203eb]" started-at="2025-06-11T22:55:14 IST" name="Open_form_MBA_India_International" finished-at="2025-06-11T22:56:05 IST" duration-ms="51157" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Open_form_MBA_India_International -->
+        <test-method is-config="true" signature="CloseBrowser(org.testng.ITestResult)[pri:0, instance:CTA.AmityOnline.MainClass@4ee203eb]" started-at="2025-06-11T22:56:05 IST" name="CloseBrowser" finished-at="2025-06-11T22:56:05 IST" duration-ms="320" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=Open_form_MBA_India_International status=SUCCESS method=MainClass.Open_form_MBA_India_International()[pri:5, instance:CTA.AmityOnline.MainClass@4ee203eb] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CloseBrowser -->
+        <test-method is-config="true" signature="flushReport()[pri:0, instance:CTA.AmityOnline.MainClass@4ee203eb]" started-at="2025-06-11T22:56:05 IST" name="flushReport" finished-at="2025-06-11T22:56:06 IST" duration-ms="834" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- flushReport -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:CTA.AmityOnline.MainClass@4ee203eb]" started-at="2025-06-11T22:56:06 IST" name="tearDown" finished-at="2025-06-11T22:56:07 IST" duration-ms="796" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- CTA.AmityOnline.MainClass -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
