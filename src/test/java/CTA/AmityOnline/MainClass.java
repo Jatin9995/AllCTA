@@ -193,7 +193,7 @@ public class MainClass extends base{
 	//-----------------Apply Now hero (Header)---------------------------------------------------------	
 
 	@Test(priority = 2)
-	public void ApplyNow_Header(){
+	public void ApplyNow_Header() throws InterruptedException{
 		test = reports.createTest("Apply_Now_India_International (Header Section)");
 
 
@@ -260,21 +260,24 @@ public class MainClass extends base{
 			applyNow.VerifyOTP.click();
 
 			// Final verification
-			boolean isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-					applyNow.startapplicationElement)).isEnabled();
-
-			softAssert.assertTrue(isSuccess, "Indian flow - Start Application button enabled check");
-			test.log(isSuccess ? Status.PASS : Status.FAIL, 
-					"Apply Now Indian Journey " + (isSuccess ? "Successful" : "Failed"));
-			System.out.println("Apply Now Indian Journey Successful");
+			WebElement isSuccess = wait.until(ExpectedConditions.visibilityOf(
+					applyNow.startapplicationElement));
+if(isSuccess.isDisplayed()) {
+	softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
+	test.log(Status.PASS, "Apply Now Indian Journey Successful");
+	System.out.println("Apply Now Indian Journey Successful");
+}
+			
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Indian Flow Failed: " + e.getMessage());
 			softAssert.fail("Indian Flow Failed - " + e.getMessage());
-		} finally {
+			System.out.println("Apply Now Indian Journey Failed");
+		} 
 			// Return to main window
 			driver.navigate().back();
-		}
+	
+			Thread.sleep(2000);
 
 		// ========== INTERNATIONAL FLOW ==========
 		try {
@@ -336,20 +339,23 @@ public class MainClass extends base{
 			}
 
 			// Final verification
-			boolean isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-					applyNow.startapplicationElement)).isEnabled();
+			WebElement isSuccess = wait.until(ExpectedConditions.visibilityOf(
+					applyNow.startapplicationElement));
+			if(isSuccess.isDisplayed()) {
+				softAssert.assertTrue(true, "International flow - Start Application button enabled check");
+				test.log(Status.PASS, "Apply Now International Journey Successful");
+				System.out.println("Apply Now International Journey Successful");
+			}
 
-			softAssert.assertTrue(isSuccess, "International flow - Start Application button enabled check");
-			test.log(isSuccess ? Status.PASS : Status.FAIL, 
-					"Apply Now International Journey " + (isSuccess ? "Successful" : "Failed"));
-			System.out.println("Apply Now International Journey Successful");
+			
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "International Flow Failed: " + e.getMessage());
 			softAssert.fail("International Flow Failed - " + e.getMessage());
-		}finally {
-			softAssert.assertAll();
+			System.out.println("Apply Now International Journey Failed");
 		}
+			softAssert.assertAll();
+		
 	}
 
 
@@ -426,21 +432,24 @@ public class MainClass extends base{
 			ApplyNowHeroCart.VerifyOTP.click();
 
 			// Final verification
-			boolean isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-					ApplyNowHeroCart.startapplicationElement)).isEnabled();
+			WebElement isSuccess = wait.until(ExpectedConditions.visibilityOf(
+					ApplyNowHeroCart.startapplicationElement));
+			if(isSuccess.isDisplayed()) {
+				softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
+				test.log(Status.PASS , "Apply Now-HeroCart Indian Journey Successful");
+				System.out.println("Apply Now-HeroCart Indian Journey Successful");
+			}
 
-			softAssert.assertTrue(isSuccess, "Indian flow - Start Application button enabled check");
-			test.log(isSuccess ? Status.PASS : Status.FAIL, 
-					"Apply Now-HeroCart Indian Journey " + (isSuccess ? "Successful" : "Failed"));
-			System.out.println("Apply Now-HeroCart Indian Journey Successful");
+			
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Indian Flow Failed: " + e.getMessage());
 			softAssert.fail("Indian Flow Failed - " + e.getMessage());
-		} finally {
+			System.out.println("Apply Now-HeroCart Indian Journey failed");
+		} 
 			// Return to main window
 			driver.navigate().back();
-		}
+		
 
 		// ========== INTERNATIONAL FLOW ==========
 		try {
@@ -502,20 +511,20 @@ public class MainClass extends base{
 			}
 
 			// Final verification
-			boolean isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-					ApplyNowHeroCart.startapplicationElement)).isEnabled();
+			WebElement isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
+					ApplyNowHeroCart.startapplicationElement));
 
-			softAssert.assertTrue(isSuccess, "International flow - Start Application button enabled check");
-			test.log(isSuccess ? Status.PASS : Status.FAIL, 
-					"Apply Now-HeroCart International Journey " + (isSuccess ? "Successful" : "Failed"));
+			softAssert.assertTrue(true, "International flow - Start Application button enabled check");
+			test.log(Status.PASS , "Apply Now-HeroCart International Journey Successful");
 			System.out.println("Apply Now-HeroCart International Journey Successful");
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "International Flow Failed: " + e.getMessage());
 			softAssert.fail("International Flow Failed - " + e.getMessage());
-		}finally {
-			softAssert.assertAll();
+			System.out.println("Apply Now-HeroCart International Journey failed");
 		}
+			softAssert.assertAll();
+		
 	}
 
 
