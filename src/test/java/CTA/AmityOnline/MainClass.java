@@ -186,11 +186,11 @@ public class MainClass extends base{
 			test.log(Status.FAIL, "International Flow Failed: " + e.getMessage());
 			softAssert.fail("International Flow Failed - " + e.getMessage());
 		}
-			softAssert.assertAll();
-		}
+		softAssert.assertAll();
+	}
 
 
-	
+
 
 
 
@@ -569,10 +569,10 @@ public class MainClass extends base{
 			// ========== INDIAN FLOW ==========
 			try {
 				// Scroll to element and wait for visibility
-				WebElement applyNowText = wait.until(ExpectedConditions.visibilityOf(blueRFI.applynowtextElement));
-				js.executeScript("arguments[0].scrollIntoView();", applyNowText);
+				//WebElement applyNowText = wait.until(ExpectedConditions.visibilityOf(blueRFI.applynowtextElement));
+				js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//div[@class='LeadForm_formSection__TxeSn']//h2[contains(text(),'Apply Now')]")));
 
-
+				Thread.sleep(2000);
 				// Generate test data
 				String randomName = "TestQA" + " " + random.GetRandomName();
 				String randomMobileNumber = "239" + random.getRandomMobileNumber();
@@ -649,10 +649,10 @@ public class MainClass extends base{
 			// ========== INTER	NATIONAL FLOW ==========
 			try {
 				// Re-initialize and scroll to element
-				WebElement applyNowTextInternational = wait.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath("//div[@class='LeadForm_formSection__TxeSn']//h2[contains(text(),'Apply Now')]")));
-				js.executeScript("arguments[0].scrollIntoView();", applyNowTextInternational);
-
+				//				WebElement applyNowTextInternational = wait.until(ExpectedConditions
+				//						.visibilityOfElementLocated(By.xpath("//div[@class='LeadForm_formSection__TxeSn']//h2[contains(text(),'Apply Now')]")));
+				js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//div[@class='LeadForm_formSection__TxeSn']//h2[contains(text(),'Apply Now')]")));
+				Thread.sleep(2000);
 				// Generate test data
 				String randomName = "TestQA" + " " + random.GetRandomName();
 				String randomMobileNumber = "239" + random.getRandomMobileNumber2();
