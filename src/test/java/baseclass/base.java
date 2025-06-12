@@ -65,7 +65,7 @@ public class base {
 
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
-		//options.addArguments("--headless=new"); // ✅ new headless mode (preferred)
+		options.addArguments("--headless=new"); // ✅ new headless mode (preferred)
 		options.addArguments("--disable-notifications");
 		options.addArguments("--window-size=1920,1080"); // ✅ sets correct resolution
 		options.addArguments("--disable-gpu"); // ✅ necessary on some systems

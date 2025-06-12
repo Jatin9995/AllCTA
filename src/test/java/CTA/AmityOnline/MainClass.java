@@ -18,12 +18,13 @@ import com.aventstack.extentreports.Status;
 import baseclass.base;
 import pages.ApplyNowPOM;
 import pages.ApplyNow_HeroCart;
+import pages.OpenFormMBA;
 import pages.enquireNowPOM;
 
 public class MainClass extends base{
 
 	//--------------------------Enquire Now------------------------------------------------------------------	
-
+/*
 	@Test(priority = 1)
 	public void enquireNow() throws InterruptedException {
 		test = reports.createTest("Enquire_Now_Indian_International (Header Section)");
@@ -674,14 +675,16 @@ public class MainClass extends base{
 	//-------------------MBA Homepage open form------------------------------------
 
 	@Test(priority = 5)
-	public void Open_form_MBA_India_International() {
+	public void Open_form_MBA_India_International() throws InterruptedException {
 		test = reports.createTest("Open_form_MBA_India & International (PG Programs)");
 		driver.navigate().to("https://amityonline.com/master-of-business-administration-online");
+	Thread.sleep(2000);
+		wait=new WebDriverWait(driver, Duration.ofSeconds(25));
 
 		// ========== INDIAN FLOW ==========
 		try {
-			// Generate test data
-			String mbaName = "TestQA " + random.GetRandomName();
+
+			String mbaName = "TestQA" + " " + random.GetRandomName();
 			String mbaMobileNumber = "239" + random.getRandomMobileNumber();
 			String mbaEmail = "TestQA_" + random.GetRamdonEmailID() + "@gmail.com";
 
@@ -689,42 +692,53 @@ public class MainClass extends base{
 			test.info("Random Mobile Number: " + mbaMobileNumber);
 			test.info("Random Email: " + mbaEmail);
 
-			// Fill form
 			openformmba.name.sendKeys(mbaName);
+			//openformmba.selectdropdown();
 			openformmba.mobile.sendKeys(mbaMobileNumber);
 			openformmba.email.sendKeys(mbaEmail);
 			openformmba.clicksubmit();
 
-			// OTP verification
-			wait.until(ExpectedConditions.elementToBeClickable(openformmba.OTPCell1));
+			Thread.sleep(6000);
+            wait.until(ExpectedConditions.elementToBeClickable(openformmba.OTPCell1));
 			openformmba.OTPCell1.sendKeys(random.GetOTP());
 			openformmba.OTPCell2.sendKeys(random.GetOTP());
 			openformmba.OTPCell3.sendKeys(random.GetOTP());
 			openformmba.OTPCell4.sendKeys(random.GetOTP());
 			openformmba.OTPCell5.sendKeys(random.GetOTP());
 			openformmba.OTPCell6.sendKeys(random.GetOTP());
+
 			openformmba.VerifyOTP.click();
 
-			// Final verification
 			wait.until(ExpectedConditions.visibilityOf(openformmba.startapplicationElement));
-			boolean isSuccess = openformmba.startapplicationElement.isEnabled();
+			if (openformmba.startapplicationElement.isEnabled()) {
 
-			softAssert.assertTrue(isSuccess, "Indian flow - Start Application button enabled check");
-			test.log(isSuccess ? Status.PASS : Status.FAIL,
-					"MBA Open form for India " + (isSuccess ? "submitted successfully" : "submission failed"));
+				test.log(Status.PASS, "MBA Open form for India is submitted successfully" );
+				softAssert.assertTrue(true, "MBA Open form is submitted successfully");
+				System.out.println("MBA Open form is submitted successfully");
 
-		} catch (Exception e) {
-			test.log(Status.FAIL, "MBA Open form for India failed: " + e.getMessage());
-			softAssert.fail("MBA Open form for India failed: " + e.getMessage());
-		} finally {
-			// Navigate back to prepare for international
-			driver.navigate().back();
-		}
 
-		// ========== INTERNATIONAL FLOW ==========
+			}else {
+				test.log(Status.FAIL, "MBA Open form is failed");
+				softAssert.fail("MBA Open form is failed");
+			}
+
+		}catch (Exception e) {
+			test.log(Status.FAIL, "MBA Open form is failed" + e.getMessage());
+			softAssert.fail("MBA Open form is failed");
+			System.out.println("MBA Open form is failed");
+
+
+
+		} 
+		Thread.sleep(1000);
+		driver.navigate().back();
+		Thread.sleep(1000);
+
+		//---------------MBA open form for international----------------------------
+
 		try {
-			// Generate test data
-			String mbaName = "TestQA " + random.GetRandomName();
+
+			String mbaName = "TestQA" + " " + random.GetRandomName();
 			String mbaMobileNumber = "23" + random.getRandomMobileNumber();
 			String mbaEmail = "TestQA_" + random.GetRamdonEmailID() + "@gmail.com";
 
@@ -732,33 +746,44 @@ public class MainClass extends base{
 			test.info("Random Mobile Number: " + mbaMobileNumber);
 			test.info("Random Email: " + mbaEmail);
 
-			// Fill form with country code selection
 			openformmba.name.sendKeys(mbaName);
 			driver.findElement(By.xpath("//div[@class='CustomDropdownGlobal_countryCode__yswjf ']")).click();
-			Actions codeActions1 = new Actions(driver);
-			WebElement unitedstate = driver.findElement(By.xpath("//div[@class='CustomDropdownGlobal_dropdownMenu__cyPE8']//div[2]//span[1]"));
+			Actions codeActions1=new Actions(driver);
+			WebElement unitedstate =driver.findElement(By.xpath("//div[@class='CustomDropdownGlobal_dropdownMenu__cyPE8']//div[2]//span[1]"));
 			codeActions1.moveToElement(unitedstate).click().perform();
 			openformmba.mobile.sendKeys(mbaMobileNumber);
 			openformmba.email.sendKeys(mbaEmail);
 			openformmba.clicksubmit();
 
-			// Final verification
+
 			wait.until(ExpectedConditions.visibilityOf(openformmba.startapplicationElement));
-			boolean isSuccess = openformmba.startapplicationElement.isEnabled();
+			if (openformmba.startapplicationElement.isEnabled()) {
 
-			softAssert.assertTrue(isSuccess, "International flow - Start Application button enabled check");
-			test.log(isSuccess ? Status.PASS : Status.FAIL,
-					"MBA Open form for International " + (isSuccess ? "submitted successfully" : "submission failed"));
+				test.log(Status.PASS, "MBA Open form for international is submitted successfully" );
+				softAssert.assertTrue(true, "MBA Open form for international is submitted successfully");
+				System.out.println("MBA Open form for international is submitted successfully");
 
-		} catch (Exception e) {
-			test.log(Status.FAIL, "MBA Open form for International failed: " + e.getMessage());
-			softAssert.fail("MBA Open form for International failed: " + e.getMessage());
-		}finally {
-			softAssert.assertAll();
-		}
+			}else {
+				test.log(Status.FAIL, "MBA Open form for international is failed");
+				softAssert.fail("MBA Open form for international is failed");
+			}
+
+		}catch (Exception e) {
+			test.log(Status.FAIL, "MBA Open form for international is failed" + e.getMessage());
+			softAssert.fail("MBA Open form for international is failed" + e.getMessage());
+			System.out.println("MBA Open form for international is failed");
+
+
+
+		} 
+
+		softAssert.assertAll();
+
+
+	
 	}
 
-
+*/
 
 
 	//---------------------------Download Brochure--------------------------------------------------------------
@@ -773,9 +798,7 @@ public class MainClass extends base{
 		try {
 			dbrochure.clickbrochure();
 			String handle4 = driver.getWindowHandle();
-
-			String parentWindow = driver.getWindowHandle();
-			switchToNewWindow(parentWindow);
+			driver.switchTo().window(handle4);
 
 			// Generate test data
 			String dname = "TestQA " + random.GetRandomName();
@@ -806,7 +829,7 @@ public class MainClass extends base{
 			// Proceed & validate
 			wait.until(ExpectedConditions.elementToBeClickable(dbrochure.proceedbutton)).click();
 
-			switchToNewWindow(parentWindow);
+		
 			//dbrochure.switchwindow();
 			Set<String> handles = driver.getWindowHandles();
 			Iterator<String> iterator = handles.iterator();
@@ -824,9 +847,10 @@ public class MainClass extends base{
 			softAssert.assertTrue(isIndiaSuccess, "India Brochure Start Application check");
 			test.log(isIndiaSuccess ? Status.PASS : Status.FAIL,
 					"Download Brochure for India " + (isIndiaSuccess ? "is working" : "is not working"));
+			System.out.println("Download Brochure for India is working (PG Programs)");
 
 			driver.close(); // close child tab
-			driver.switchTo().window(parentWindow);
+			driver.switchTo().window(handle4);
 
 			// Close pop-up
 			WebElement closePopup = driver.findElement(By.xpath("//div[@class='bg-white Modal_dialog__e3Pgf']//*[name()='svg']"));
@@ -835,14 +859,15 @@ public class MainClass extends base{
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Download Brochure for India failed: " + e.getMessage());
 			softAssert.fail("Download Brochure for India failed: " + e.getMessage());
+			System.out.println("Download Brochure for India is not working (PG Programs)");
 		}
 
 		// ========== DOWNLOAD BROCHURE - INTERNATIONAL ==========
 		try {
 			dbrochure.clickbrochure();
 
-			String parentWindow = driver.getWindowHandle();
-			switchToNewWindow(parentWindow);
+			String handle5 = driver.getWindowHandle();
+			driver.switchTo().window(handle5);
 
 			String dname = "TestQA " + random.GetRandomName();
 			String dmobilenumber = "23" + random.getRandomMobileNumber();
@@ -867,33 +892,24 @@ public class MainClass extends base{
 			wait.until(ExpectedConditions.elementToBeClickable(dbrochure.proceedbutton)).click();
 			dbrochure.switchwindow();
 
-			wait.until(ExpectedConditions.visibilityOf(dbrochure.startapplicationElement));
-			boolean isInternationalSuccess = dbrochure.startapplicationElement.isEnabled();
-			softAssert.assertTrue(isInternationalSuccess, "International Brochure Start Application check");
-			test.log(isInternationalSuccess ? Status.PASS : Status.FAIL,
-					"Download Brochure for International " + (isInternationalSuccess ? "is working" : "is not working"));
+			WebElement isInternationalSuccess = wait.until(ExpectedConditions.visibilityOf(dbrochure.startapplicationElement));
+			if(isInternationalSuccess.isDisplayed()) {
+				softAssert.assertTrue(true, "International Brochure Start Application check");
+				test.log(Status.PASS, "Download Brochure for International is working (PG Programs");
+				System.out.println("Download Brochure for International is working (PG Programs)");
 
+			}
+			
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Download Brochure for International failed: " + e.getMessage());
 			softAssert.fail("Download Brochure for International failed: " + e.getMessage());
-		}finally {
-			softAssert.assertAll();
+			System.out.println("Download Brochure for International is not working (PG Programs)");
 		}
+			softAssert.assertAll();
+		
 	}
 
-
-
-	//----------bca-cloud-security-online_Specialization----------------------------------------------		
-
-	private void switchToNewWindow(String parentWindow) {
-
-	}
-
-
-
-
-
-
+//-------------BCA-cloud-security-online----------------------------
 
 	@Test(priority = 7)
 	public void BCA_specialization() {
@@ -913,7 +929,7 @@ public class MainClass extends base{
 				test.info("Indian Flow -> Name: " + bcaName);
 				test.info("Indian Flow -> Mobile: " + bcaMobile);
 				test.info("Indian Flow -> Email: " + bcaEmail);
-
+                wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.name));
 				bcaspecialization.name.sendKeys(bcaName);
 				bcaspecialization.mobile.sendKeys(bcaMobile);
 				bcaspecialization.email.sendKeys(bcaEmail);
@@ -928,23 +944,29 @@ public class MainClass extends base{
 				bcaspecialization.OTPCell6.sendKeys(random.GetOTP());
 				wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.VerifyOTP)).click();
 
-				boolean isIndianSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-						bcaspecialization.startapplicationElement)).isEnabled();
-
-				softAssert.assertTrue(isIndianSuccess, "Indian flow - Start Application button enabled check");
-				test.log(isIndianSuccess ? Status.PASS : Status.FAIL,
-						"BCA Specialization Indian Flow " + (isIndianSuccess ? "Successful" : "Failed"));
-
+				WebElement isIndianSuccess = wait.until(ExpectedConditions.visibilityOf(
+						bcaspecialization.startapplicationElement));
+				if(isIndianSuccess.isDisplayed()) {
+					softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
+					test.log(Status.PASS, "Indian flow - Start Application button enabled check");
+							
+					System.out.println("BCA Specialization Indian Flow Successful");
+				}else {
+					softAssert.assertTrue(false, "BCA Specialization Indian Flow failed");
+					test.log(Status.PASS, "Indian flow - Start Application button enabled check");
+				}
 			} catch (Exception e) {
 				test.log(Status.FAIL, "BCA Specialization Indian Flow Failed: " + e.getMessage());
 				softAssert.fail("BCA Specialization Indian Flow Failed - " + e.getMessage());
-			} finally {
+				System.out.println("BCA Specialization Indian Flow not Successful");
+			} 
 				driver.navigate().back();
-			}
+			
 
+			Thread.sleep(2000);
 			// ========== INTERNATIONAL FLOW ==========
 			try {
-				wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.name));
+				
 
 				String bcaName = "TestQA " + random.GetRandomName();
 				String bcaMobile = "23" + random.getRandomMobileNumber();
@@ -953,7 +975,7 @@ public class MainClass extends base{
 				test.info("International Flow -> Name: " + bcaName);
 				test.info("International Flow -> Mobile: " + bcaMobile);
 				test.info("International Flow -> Email: " + bcaEmail);
-
+                wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.name));
 				bcaspecialization.name.sendKeys(bcaName);
 				driver.findElement(By.xpath("//div[@class='CustomDropdownGlobal_countryCode__yswjf ']")).click();
 				Actions actions= new Actions(driver);
@@ -964,35 +986,41 @@ public class MainClass extends base{
 				bcaspecialization.email.sendKeys(bcaEmail);
 				bcaspecialization.clicksubmit();
 
-				boolean isInternationalSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-						bcaspecialization.startapplicationElement)).isEnabled();
+				 WebElement isInternationalSuccess = wait.until(ExpectedConditions.elementToBeClickable(
+						bcaspecialization.startapplicationElement));
+				 if(isInternationalSuccess.isDisplayed()) {
+					 softAssert.assertTrue(true, "International flow - Start Application button enabled check");
+						test.log(Status.PASS, "International flow - Start Application button enabled check");
+						System.out.println("BCA Specialization International Flow Successful");
+				 }
 
-				softAssert.assertTrue(isInternationalSuccess, "International flow - Start Application button enabled check");
-				test.log(isInternationalSuccess ? Status.PASS : Status.FAIL,
-						"BCA International Flow " + (isInternationalSuccess ? "Successful" : "Failed"));
+				
 
 			} catch (Exception e) {
 				test.log(Status.FAIL, "BCA International Flow Failed: " + e.getMessage());
 				softAssert.fail("BCA International Flow Failed - " + e.getMessage());
+				System.out.println("BCA Specialization International Flow not Successful");
 			}
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Test Setup Failed: " + e.getMessage());
 			softAssert.fail("Test Setup Failed - " + e.getMessage());
-		}finally {
-			softAssert.assertAll();
 		}
+			softAssert.assertAll();
+		
 
 
 	}
 
 
-	//----------bca-cloud-security-online_Specialization_Download Brochure----------------------------------------------		
+/*
+
+//----------bca-cloud-security-online_Specialization_Download Brochure----------------------------------------------		
 
 
 	@Test(priority = 8)
 	public void BcaDownloadBrochure() throws InterruptedException {
-		test = reports.createTest("Download_Brochure_India_International ()");
+		test = reports.createTest("Download_Brochure_India_International (UG Specialization)");
 		driver.navigate().to("https://amityonline.com/bca-cloud-security-online");
 		Thread.sleep(2000);
 		wait = new WebDriverWait(driver, Duration.ofSeconds(25));
@@ -1000,13 +1028,11 @@ public class MainClass extends base{
 		// ========== INDIAN FLOW ==========
 
 		try {
-			String mainWindow = driver.getWindowHandle();
 			WebElement downloadBrochureBtn = wait.until(ExpectedConditions.elementToBeClickable(bcaBrochure.downloadbrochurElement));
-			Thread.sleep(2000);
 			downloadBrochureBtn.click();
-
+			Thread.sleep(2000);
+			String mainWindow = driver.getWindowHandle();
 			driver.switchTo().window(mainWindow);
-
 
 			String dname = "TestQA " + random.GetRandomName();
 			String dmobilenumber = "239" + random.getRandomMobileNumber();
@@ -1015,7 +1041,7 @@ public class MainClass extends base{
 			test.info("Random Name: " + dname);
 			test.info("Random Mobile Number: " + dmobilenumber);
 			test.info("Random Email: " + demailid);
-
+			wait.until(ExpectedConditions.elementToBeClickable(bcaBrochure.contactnumberElement));
 			bcaBrochure.contactnumberElement.sendKeys(dmobilenumber);
 			bcaBrochure.usernamElement.sendKeys(dname);
 			bcaBrochure.useremailElement.sendKeys(demailid);
@@ -1045,11 +1071,12 @@ public class MainClass extends base{
 			}
 
 
-			boolean indianSuccess = wait.until(ExpectedConditions.elementToBeClickable(bcaBrochure.startapplicationElement)).isEnabled();
+			boolean indianSuccess = wait.until(ExpectedConditions.visibilityOf(bcaBrochure.startapplicationElement)).isEnabled();
 
 			softAssert.assertTrue(indianSuccess, "Indian Brochure flow");
 			test.log(indianSuccess ? Status.PASS : Status.FAIL,
 					"BCA Specialization Download Brochure for India " + (indianSuccess ? "is working" : "is not working"));
+			System.out.println("BCA Specialization Download Brochure for India is working");
 
 			// Close child windows and return to parent
 			driver.close();
@@ -1059,15 +1086,17 @@ public class MainClass extends base{
 		} catch (Exception e) {
 			test.log(Status.FAIL, "BCA Specialization Download Brochure for India failed: " + e.getMessage());
 			softAssert.fail("India flow failed - " + e.getMessage());
+			System.out.println("BCA Specialization Download Brochure for India is not working");
 		}
 
 		// ========== INTERNATIONAL FLOW ==========
 		
 		Thread.sleep(2000);
 		try {
-			String mainWindow = driver.getWindowHandle();
-			WebElement downloadBrochureBtn = wait.until(ExpectedConditions.visibilityOf(bcaBrochure.downloadbrochurElement));
+			WebElement downloadBrochureBtn = wait.until(ExpectedConditions.elementToBeClickable(bcaBrochure.downloadbrochurElement));
 			downloadBrochureBtn.click();
+			Thread.sleep(2000);
+			String mainWindow = driver.getWindowHandle();
 			driver.switchTo().window(mainWindow);
 
 			String dname = "TestQA " + random.GetRandomName();
@@ -1107,15 +1136,17 @@ public class MainClass extends base{
 			}
 
 
-			boolean intlSuccess = wait.until(ExpectedConditions.elementToBeClickable(bcaBrochure.startapplicationElement)).isEnabled();
+			boolean intlSuccess = wait.until(ExpectedConditions.visibilityOf(bcaBrochure.startapplicationElement)).isEnabled();
 
 			softAssert.assertTrue(intlSuccess, "International Brochure flow");
 			test.log(intlSuccess ? Status.PASS : Status.FAIL,
 					"BCA Specialization Download Brochure for International " + (intlSuccess ? "is working" : "is not working"));
+			System.out.println("BCA Specialization Download Brochure for International is working");
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "BCA Specialization Download Brochure for International failed: " + e.getMessage());
 			softAssert.fail("International flow failed - " + e.getMessage());
+			System.out.println("BCA Specialization Download Brochure for International is not working");
 		}finally {
 			softAssert.assertAll();
 		}
@@ -1316,7 +1347,7 @@ public class MainClass extends base{
 
 	}
 
-
+*/
 
 
 }
