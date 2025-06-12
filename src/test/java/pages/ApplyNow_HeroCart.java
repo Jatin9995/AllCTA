@@ -102,7 +102,7 @@ public class ApplyNow_HeroCart {
 
 	public void ClickIfPresentOrSwitchThenClick(WebElement elementToClick) {
 		JavascriptExecutor js=((JavascriptExecutor)driver);
-		WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(15));
 		try {
 			wait.until(ExpectedConditions.visibilityOf(elementToClick));
 			if(elementToClick.isDisplayed()) {

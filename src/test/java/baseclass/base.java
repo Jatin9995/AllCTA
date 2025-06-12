@@ -3,6 +3,7 @@ package baseclass;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -25,6 +26,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
 import Random.RandomDetails;
+import io.appium.java_client.functions.ExpectedCondition;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.ApplyNowPOM;
 import pages.ApplyNow_HeroCart;
@@ -133,26 +135,29 @@ public class base {
 	
 	@AfterMethod
 	public void CloseBrowser(ITestResult result) throws IOException {
-		String testname=result.getName();
-		String myscreenshot=ScreenShot.takeScreenshot(driver, testname);
-		if (result.getStatus()==ITestResult.FAILURE) {
-			test.addScreenCaptureFromPath(myscreenshot);
-			test.log(Status.FAIL, "Test failed: " + result.getThrowable());
-		}else if (result.getStatus() == ITestResult.SUCCESS) {
-			test.addScreenCaptureFromPath(myscreenshot);
-			test.log(Status.PASS, "Test passed");
+		 String testName = result.getName();
+		    String screenshotPath = ScreenShot.takeScreenshot(driver, testName);
 
-		}else if (result.getStatus() == ITestResult.SKIP) {
-			test.addScreenCaptureFromPath(myscreenshot);
-			test.log(Status.SKIP, "Test Skip");
+		    switch (result.getStatus()) {
+		        case ITestResult.FAILURE:
+		            test.addScreenCaptureFromPath(screenshotPath);
+		            test.log(Status.FAIL, "❌ Test failed: " + result.getThrowable());
+		            break;
 
+		        case ITestResult.SUCCESS:
+		            test.addScreenCaptureFromPath(screenshotPath);
+		            test.log(Status.PASS, "✅ Test passed");
+		            break;
+
+		        case ITestResult.SKIP:
+		            test.addScreenCaptureFromPath(screenshotPath);
+		            test.log(Status.SKIP, "⚠️ Test skipped");
+		            break;
+		    }
 
 		}
 		
-//		softAssert.assertAll();
-//		driver.quit();
-	}
-	
+
 	
 	@AfterSuite
 	public void tearDown() {
@@ -161,6 +166,23 @@ public class base {
 	    }
 	}
 	
-	
+	public WebElement waitForElementWithTiming(Function<WebDriver, WebElement> condition, String elementName) {
+	    WebElement element = null;
+	    long startTime = System.currentTimeMillis(); // Start time in milliseconds
+	    try {
+	        element = new WebDriverWait(driver, Duration.ofSeconds(30)).until(condition); // Try to locate the element
+	    } catch (Exception e) {
+	        long endTime = System.currentTimeMillis(); // End time in milliseconds
+	        long durationInSeconds = (endTime - startTime) / 1000; // Convert to seconds
+	        test.log(Status.FAIL, "❌ Failed to load element '" + elementName + "' in " + durationInSeconds + " sec: " + e.getMessage());
+	        softAssert.fail("Element '" + elementName + "' failed to load: " + e.getMessage());
+	    }
+	    return element;
+	}
+
+	 // ✅ Add this once here
+    protected String formatSeconds(long nanos) {
+        return String.format("%.2f", (double) nanos / 1_000_000_000) + " seconds";
+    }
 	
 }
