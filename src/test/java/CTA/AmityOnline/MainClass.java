@@ -46,7 +46,7 @@ public class MainClass extends base{
 
 			// Initialize POM in new window
 			enquirNow = new enquireNowPOM(driver);
-			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 			// Select Indian flow
 			wait.until(ExpectedConditions.elementToBeClickable(enquirNow.indianBTN)).click();
 			// Generate test data
@@ -89,23 +89,29 @@ public class MainClass extends base{
 
 			// Final verification
 			wait.until(ExpectedConditions.elementToBeClickable(enquirNow.continueapplicationElement)).click();
-			boolean isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-					enquirNow.startapplicationElement)).isEnabled();
+			WebElement isSuccess7 = wait.until(ExpectedConditions.elementToBeClickable(
+					enquirNow.startapplicationElement));
+			if(isSuccess7.isDisplayed()) {
+				softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
+				test.log(Status.PASS, "Enquire Now Indian Journey Successful");
+				System.out.println("Enquire Now Indian Journey Successful");
+			}else {
+				test.log(Status.FAIL, "Indian Flow Failed: ");
+				softAssert.fail("Indian Flow Failed - ");
+				System.out.println("Enquire Now Indian Journey Successful");
+			}
 
-			softAssert.assertTrue(isSuccess, "Indian flow - Start Application button enabled check");
-			test.log(isSuccess ? Status.PASS : Status.FAIL, 
-					"Enquire Now Indian Journey " + (isSuccess ? "Successful" : "Failed"));
-			System.out.println("Enquire Now Indian Journey Successful");
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Indian Flow Failed: " + e.getMessage());
 			softAssert.fail("Indian Flow Failed - " + e.getMessage());
-		} finally {
+		} 
 
-			// Return to main window
-			driver.navigate().back();
-			driver.navigate().back();
-		}
+		// Return to main window
+		driver.navigate().back();
+		Thread.sleep(1000);
+		driver.navigate().back();
+
 
 		// ========== INTERNATIONAL FLOW ==========
 		try {
@@ -125,7 +131,7 @@ public class MainClass extends base{
 
 			// Initialize POM in new window
 			enquirNow = new enquireNowPOM(driver);
-			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			// Select International flow
 			Thread.sleep(2000);
@@ -179,12 +185,12 @@ public class MainClass extends base{
 		} catch (Exception e) {
 			test.log(Status.FAIL, "International Flow Failed: " + e.getMessage());
 			softAssert.fail("International Flow Failed - " + e.getMessage());
-		}finally {
+		}
 			softAssert.assertAll();
 		}
 
 
-	}
+	
 
 
 
@@ -215,7 +221,7 @@ public class MainClass extends base{
 
 			// Initialize POM in new window
 			applyNow = new ApplyNowPOM(driver);
-			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			// Select Indian flow
 			wait.until(ExpectedConditions.elementToBeClickable(applyNow.indianBTN)).click();
@@ -260,24 +266,28 @@ public class MainClass extends base{
 			applyNow.VerifyOTP.click();
 
 			// Final verification
-			WebElement isSuccess = wait.until(ExpectedConditions.visibilityOf(
+			WebElement isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
 					applyNow.startapplicationElement));
-if(isSuccess.isDisplayed()) {
-	softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
-	test.log(Status.PASS, "Apply Now Indian Journey Successful");
-	System.out.println("Apply Now Indian Journey Successful");
-}
-			
+			if(isSuccess.isEnabled()) {
+				softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
+				test.log(Status.PASS, "Apply Now Indian Journey Successful");
+				System.out.println("Apply Now Indian Journey Successful");
+			}else {
+				test.log(Status.FAIL, "Indian Flow Failed:");
+				softAssert.fail("Indian Flow Failed - ");
+				System.out.println("Apply Now Indian Journey Failed");
+			}
+
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Indian Flow Failed: " + e.getMessage());
 			softAssert.fail("Indian Flow Failed - " + e.getMessage());
 			System.out.println("Apply Now Indian Journey Failed");
 		} 
-			// Return to main window
-			driver.navigate().back();
-	
-			Thread.sleep(2000);
+		// Return to main window
+		driver.navigate().back();
+
+		Thread.sleep(2000);
 
 		// ========== INTERNATIONAL FLOW ==========
 		try {
@@ -297,7 +307,7 @@ if(isSuccess.isDisplayed()) {
 
 			// Initialize POM in new window
 			applyNow = new ApplyNowPOM(driver);
-			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			// Select International flow
 			Thread.sleep(2000);
@@ -339,23 +349,27 @@ if(isSuccess.isDisplayed()) {
 			}
 
 			// Final verification
-			WebElement isSuccess = wait.until(ExpectedConditions.visibilityOf(
+			WebElement isSuccess1 = wait.until(ExpectedConditions.elementToBeClickable(
 					applyNow.startapplicationElement));
-			if(isSuccess.isDisplayed()) {
+			if(isSuccess1.isEnabled()) {
 				softAssert.assertTrue(true, "International flow - Start Application button enabled check");
 				test.log(Status.PASS, "Apply Now International Journey Successful");
 				System.out.println("Apply Now International Journey Successful");
+			}else {
+				test.log(Status.FAIL, "International Flow Failed: ");
+				softAssert.fail("International Flow Failed - " );
+				System.out.println("Apply Now International Journey Failed");
 			}
 
-			
+
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "International Flow Failed: " + e.getMessage());
 			softAssert.fail("International Flow Failed - " + e.getMessage());
 			System.out.println("Apply Now International Journey Failed");
 		}
-			softAssert.assertAll();
-		
+		softAssert.assertAll();
+
 	}
 
 
@@ -387,7 +401,7 @@ if(isSuccess.isDisplayed()) {
 
 			// Initialize POM in new window
 			ApplyNowHeroCart = new ApplyNow_HeroCart(driver);
-			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			// Select Indian flow
 			wait.until(ExpectedConditions.elementToBeClickable(ApplyNowHeroCart.indianBTN)).click();
@@ -432,24 +446,28 @@ if(isSuccess.isDisplayed()) {
 			ApplyNowHeroCart.VerifyOTP.click();
 
 			// Final verification
-			WebElement isSuccess = wait.until(ExpectedConditions.visibilityOf(
+			WebElement isSuccess2 = wait.until(ExpectedConditions.elementToBeClickable(
 					ApplyNowHeroCart.startapplicationElement));
-			if(isSuccess.isDisplayed()) {
+			if(isSuccess2.isEnabled()) {
 				softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
 				test.log(Status.PASS , "Apply Now-HeroCart Indian Journey Successful");
 				System.out.println("Apply Now-HeroCart Indian Journey Successful");
+			}else {
+				test.log(Status.FAIL, "Indian Flow Failed: ");
+				softAssert.fail("Indian Flow Failed - ");
+				System.out.println("Apply Now-HeroCart Indian Journey failed");
 			}
 
-			
+
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Indian Flow Failed: " + e.getMessage());
 			softAssert.fail("Indian Flow Failed - " + e.getMessage());
 			System.out.println("Apply Now-HeroCart Indian Journey failed");
 		} 
-			// Return to main window
-			driver.navigate().back();
-		
+		// Return to main window
+		driver.navigate().back();
+
 
 		// ========== INTERNATIONAL FLOW ==========
 		try {
@@ -467,7 +485,7 @@ if(isSuccess.isDisplayed()) {
 
 			// Initialize POM in new window
 			ApplyNowHeroCart = new ApplyNow_HeroCart(driver);
-			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			// Select International flow
 			Thread.sleep(2000);
@@ -511,20 +529,27 @@ if(isSuccess.isDisplayed()) {
 			}
 
 			// Final verification
-			WebElement isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
+			WebElement isSuccess3 = wait.until(ExpectedConditions.elementToBeClickable(
 					ApplyNowHeroCart.startapplicationElement));
+			if(isSuccess3.isEnabled()) {
+				softAssert.assertTrue(true, "International flow - Start Application button enabled check");
+				test.log(Status.PASS , "Apply Now-HeroCart International Journey Successful");
+				System.out.println("Apply Now-HeroCart International Journey Successful");
 
-			softAssert.assertTrue(true, "International flow - Start Application button enabled check");
-			test.log(Status.PASS , "Apply Now-HeroCart International Journey Successful");
-			System.out.println("Apply Now-HeroCart International Journey Successful");
+			}else {
+				test.log(Status.FAIL, "International Flow Failed");
+				softAssert.fail("International Flow Failed - ");
+				System.out.println("Apply Now-HeroCart International Journey failed");
+			}
+
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "International Flow Failed: " + e.getMessage());
 			softAssert.fail("International Flow Failed - " + e.getMessage());
 			System.out.println("Apply Now-HeroCart International Journey failed");
 		}
-			softAssert.assertAll();
-		
+		softAssert.assertAll();
+
 	}
 
 
@@ -539,14 +564,14 @@ if(isSuccess.isDisplayed()) {
 			// Close popups and initialize
 			ApplyNowHeroCart.closescholarshippopup();
 			ApplyNowHeroCart.closePopupIfPresent();
-			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
 			// ========== INDIAN FLOW ==========
 			try {
 				// Scroll to element and wait for visibility
 				WebElement applyNowText = wait.until(ExpectedConditions.visibilityOf(blueRFI.applynowtextElement));
 				js.executeScript("arguments[0].scrollIntoView();", applyNowText);
-				
+
 
 				// Generate test data
 				String randomName = "TestQA" + " " + random.GetRandomName();
@@ -583,9 +608,9 @@ if(isSuccess.isDisplayed()) {
 				} catch (Exception e) {
 					test.warning("Degree/Program selection step skipped: " + e.getMessage());
 				}
-				
-			
-				
+
+
+
 				wait.until(ExpectedConditions.elementToBeClickable(blueRFI.OTPCell1));
 				// OTP verification
 				blueRFI.OTPCell1.sendKeys(random.GetOTP());
@@ -597,28 +622,36 @@ if(isSuccess.isDisplayed()) {
 				blueRFI.VerifyOTP.click();
 
 				// Final verification
-				boolean isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-						blueRFI.startapplicationElement)).isEnabled();
+				WebElement isSuccess4 = wait.until(ExpectedConditions.visibilityOf(
+						blueRFI.startapplicationElement));
+				if(isSuccess4.isDisplayed()) {
+					softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
+					test.log(Status.PASS , "Blue RFI Indian Journey Successful");
+					System.out.println("Blue RFI Indian Journey Successful");
+				}else {
+					test.log(Status.FAIL, "Indian Flow Failed");
+					softAssert.fail("Blue RFI Indian Flow Failed");
+					System.out.println("Blue RFI Indian Flow Failed");
+				}
 
-				softAssert.assertTrue(isSuccess, "Indian flow - Start Application button enabled check");
-				test.log(isSuccess ? Status.PASS : Status.FAIL, 
-						"Blue RFI Indian Journey " + (isSuccess ? "Successful" : "Failed"));
-				System.out.println("Blue RFI Indian Journey Successful");
+
 
 			} catch (Exception e) {
 				test.log(Status.FAIL, "Indian Flow Failed: " + e.getMessage());
 				softAssert.fail("Indian Flow Failed - " + e.getMessage());
-			} finally {
-				// Return to previous page
-				driver.navigate().back();
-			}
+				System.out.println("Blue RFI Indian Journey failed");
+			} 
+			// Return to previous page
+			driver.navigate().back();
+			Thread.sleep(2000);
+
 
 			// ========== INTER	NATIONAL FLOW ==========
 			try {
 				// Re-initialize and scroll to element
 				WebElement applyNowTextInternational = wait.until(ExpectedConditions
-					    .visibilityOfElementLocated(By.xpath("//div[@class='LeadForm_formSection__TxeSn']//h2[contains(text(),'Apply Now')]")));
-					js.executeScript("arguments[0].scrollIntoView();", applyNowTextInternational);
+						.visibilityOfElementLocated(By.xpath("//div[@class='LeadForm_formSection__TxeSn']//h2[contains(text(),'Apply Now')]")));
+				js.executeScript("arguments[0].scrollIntoView();", applyNowTextInternational);
 
 				// Generate test data
 				String randomName = "TestQA" + " " + random.GetRandomName();
@@ -659,13 +692,18 @@ if(isSuccess.isDisplayed()) {
 				}
 
 				// Final verification
-				boolean isSuccess = wait.until(ExpectedConditions.elementToBeClickable(
-						blueRFI.startapplicationElement)).isEnabled();
+				WebElement isSuccess5 = wait.until(ExpectedConditions.visibilityOf(
+						blueRFI.startapplicationElement));
+				if(isSuccess5.isDisplayed()) {
+					softAssert.assertTrue(true, "International flow - Start Application button enabled check");
+					test.log(Status.PASS, "Blue RFI International Journey Successful");
+					System.out.println("Blue RFI International Journey Successful");
+				}else {
+					softAssert.assertTrue(false, "International Flow Failed");
+					test.log(Status.PASS, "Blue RFI International Flow Failed");
+					System.out.println("Blue RFI International Flow Failed");
+				}
 
-				softAssert.assertTrue(isSuccess, "International flow - Start Application button enabled check");
-				test.log(isSuccess ? Status.PASS : Status.FAIL, 
-						"Blue RFI International Journey " + (isSuccess ? "Successful" : "Failed"));
-				System.out.println("Blue RFI International Journey Successful");
 
 			} catch (Exception e) {
 				test.log(Status.FAIL, "International Flow Failed: " + e.getMessage());
@@ -675,9 +713,9 @@ if(isSuccess.isDisplayed()) {
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Blue RFI Test Failed: " + e.getMessage());
 			softAssert.fail("Blue RFI Test Failed - " + e.getMessage());
-		}finally {
-			softAssert.assertAll();
 		}
+		softAssert.assertAll();
+
 	}
 
 
@@ -687,7 +725,7 @@ if(isSuccess.isDisplayed()) {
 	public void Open_form_MBA_India_International() throws InterruptedException {
 		test = reports.createTest("Open_form_MBA_India & International (PG Programs)");
 		driver.navigate().to("https://amityonline.com/master-of-business-administration-online");
-	Thread.sleep(2000);
+		Thread.sleep(2000);
 		wait=new WebDriverWait(driver, Duration.ofSeconds(25));
 
 		// ========== INDIAN FLOW ==========
@@ -708,7 +746,7 @@ if(isSuccess.isDisplayed()) {
 			openformmba.clicksubmit();
 
 			Thread.sleep(6000);
-            wait.until(ExpectedConditions.elementToBeClickable(openformmba.OTPCell1));
+			wait.until(ExpectedConditions.elementToBeClickable(openformmba.OTPCell1));
 			openformmba.OTPCell1.sendKeys(random.GetOTP());
 			openformmba.OTPCell2.sendKeys(random.GetOTP());
 			openformmba.OTPCell3.sendKeys(random.GetOTP());
@@ -775,6 +813,7 @@ if(isSuccess.isDisplayed()) {
 			}else {
 				test.log(Status.FAIL, "MBA Open form for international is failed");
 				softAssert.fail("MBA Open form for international is failed");
+				System.out.println("MBA Open form for international is failed");
 			}
 
 		}catch (Exception e) {
@@ -789,7 +828,7 @@ if(isSuccess.isDisplayed()) {
 		softAssert.assertAll();
 
 
-	
+
 	}
 
 
@@ -838,7 +877,7 @@ if(isSuccess.isDisplayed()) {
 			// Proceed & validate
 			wait.until(ExpectedConditions.elementToBeClickable(dbrochure.proceedbutton)).click();
 
-		
+
 			//dbrochure.switchwindow();
 			Set<String> handles = driver.getWindowHandles();
 			Iterator<String> iterator = handles.iterator();
@@ -850,13 +889,16 @@ if(isSuccess.isDisplayed()) {
 					break;
 				}
 			}
-			wait.until(ExpectedConditions.visibilityOf(dbrochure.startapplicationElement));
-
-			boolean isIndiaSuccess = dbrochure.startapplicationElement.isEnabled();
-			softAssert.assertTrue(isIndiaSuccess, "India Brochure Start Application check");
-			test.log(isIndiaSuccess ? Status.PASS : Status.FAIL,
-					"Download Brochure for India " + (isIndiaSuccess ? "is working" : "is not working"));
-			System.out.println("Download Brochure for India is working (PG Programs)");
+			WebElement isSuccess6 = wait.until(ExpectedConditions.visibilityOf(dbrochure.startapplicationElement));
+			if(isSuccess6.isDisplayed()) {
+				softAssert.assertTrue(true, "India Brochure Start Application check");
+				test.log(Status.PASS, "Download Brochure for India is working (PG Programs)" );
+				System.out.println("Download Brochure for India is working (PG Programs)");
+			}else {
+				test.log(Status.FAIL, "Download Brochure for India failed: ");
+				softAssert.fail("Download Brochure for India failed: ");
+				System.out.println("Download Brochure for India is not working (PG Programs)");
+			}
 
 			driver.close(); // close child tab
 			driver.switchTo().window(handle4);
@@ -907,18 +949,22 @@ if(isSuccess.isDisplayed()) {
 				test.log(Status.PASS, "Download Brochure for International is working (PG Programs");
 				System.out.println("Download Brochure for International is working (PG Programs)");
 
+			}else {
+				test.log(Status.FAIL, "Download Brochure for International failed: ");
+				softAssert.fail("Download Brochure for International failed: ");
+				System.out.println("Download Brochure for International is not working (PG Programs)");
 			}
-			
+
 		} catch (Exception e) {
 			test.log(Status.FAIL, "Download Brochure for International failed: " + e.getMessage());
 			softAssert.fail("Download Brochure for International failed: " + e.getMessage());
 			System.out.println("Download Brochure for International is not working (PG Programs)");
 		}
-			softAssert.assertAll();
-		
+		softAssert.assertAll();
+
 	}
 
-//-------------BCA-cloud-security-online----------------------------
+	//-------------BCA-cloud-security-online----------------------------
 
 	@Test(priority = 7)
 	public void BCA_specialization() {
@@ -938,7 +984,7 @@ if(isSuccess.isDisplayed()) {
 				test.info("Indian Flow -> Name: " + bcaName);
 				test.info("Indian Flow -> Mobile: " + bcaMobile);
 				test.info("Indian Flow -> Email: " + bcaEmail);
-                wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.name));
+				wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.name));
 				bcaspecialization.name.sendKeys(bcaName);
 				bcaspecialization.mobile.sendKeys(bcaMobile);
 				bcaspecialization.email.sendKeys(bcaEmail);
@@ -958,24 +1004,25 @@ if(isSuccess.isDisplayed()) {
 				if(isIndianSuccess.isDisplayed()) {
 					softAssert.assertTrue(true, "Indian flow - Start Application button enabled check");
 					test.log(Status.PASS, "Indian flow - Start Application button enabled check");
-							
+
 					System.out.println("BCA Specialization Indian Flow Successful");
 				}else {
 					softAssert.assertTrue(false, "BCA Specialization Indian Flow failed");
 					test.log(Status.PASS, "Indian flow - Start Application button enabled check");
+					System.out.println("BCA Specialization Indian Flow not Successful");
 				}
 			} catch (Exception e) {
 				test.log(Status.FAIL, "BCA Specialization Indian Flow Failed: " + e.getMessage());
 				softAssert.fail("BCA Specialization Indian Flow Failed - " + e.getMessage());
 				System.out.println("BCA Specialization Indian Flow not Successful");
 			} 
-				driver.navigate().back();
-			
+			driver.navigate().back();
+
 
 			Thread.sleep(2000);
 			// ========== INTERNATIONAL FLOW ==========
 			try {
-				
+
 
 				String bcaName = "TestQA " + random.GetRandomName();
 				String bcaMobile = "23" + random.getRandomMobileNumber();
@@ -984,7 +1031,7 @@ if(isSuccess.isDisplayed()) {
 				test.info("International Flow -> Name: " + bcaName);
 				test.info("International Flow -> Mobile: " + bcaMobile);
 				test.info("International Flow -> Email: " + bcaEmail);
-                wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.name));
+				wait.until(ExpectedConditions.elementToBeClickable(bcaspecialization.name));
 				bcaspecialization.name.sendKeys(bcaName);
 				driver.findElement(By.xpath("//div[@class='CustomDropdownGlobal_countryCode__yswjf ']")).click();
 				Actions actions= new Actions(driver);
@@ -995,15 +1042,15 @@ if(isSuccess.isDisplayed()) {
 				bcaspecialization.email.sendKeys(bcaEmail);
 				bcaspecialization.clicksubmit();
 
-				 WebElement isInternationalSuccess = wait.until(ExpectedConditions.elementToBeClickable(
+				WebElement isInternationalSuccess = wait.until(ExpectedConditions.elementToBeClickable(
 						bcaspecialization.startapplicationElement));
-				 if(isInternationalSuccess.isDisplayed()) {
-					 softAssert.assertTrue(true, "International flow - Start Application button enabled check");
-						test.log(Status.PASS, "International flow - Start Application button enabled check");
-						System.out.println("BCA Specialization International Flow Successful");
-				 }
+				if(isInternationalSuccess.isDisplayed()) {
+					softAssert.assertTrue(true, "International flow - Start Application button enabled check");
+					test.log(Status.PASS, "International flow - Start Application button enabled check");
+					System.out.println("BCA Specialization International Flow Successful");
+				}
 
-				
+
 
 			} catch (Exception e) {
 				test.log(Status.FAIL, "BCA International Flow Failed: " + e.getMessage());
@@ -1015,8 +1062,8 @@ if(isSuccess.isDisplayed()) {
 			test.log(Status.FAIL, "Test Setup Failed: " + e.getMessage());
 			softAssert.fail("Test Setup Failed - " + e.getMessage());
 		}
-			softAssert.assertAll();
-		
+		softAssert.assertAll();
+
 
 
 	}
@@ -1024,7 +1071,7 @@ if(isSuccess.isDisplayed()) {
 
 
 
-//----------bca-cloud-security-online_Specialization_Download Brochure----------------------------------------------		
+	//----------bca-cloud-security-online_Specialization_Download Brochure----------------------------------------------		
 
 
 	@Test(priority = 8)
@@ -1081,12 +1128,16 @@ if(isSuccess.isDisplayed()) {
 
 
 			WebElement indianSuccess = wait.until(ExpectedConditions.visibilityOf(bcaBrochure.startapplicationElement));
-if(indianSuccess.isEnabled()) {
-	softAssert.assertTrue(true, "Indian Brochure flow");
-	test.log(Status.PASS, "BCA Specialization Download Brochure for India is working");
-	System.out.println("BCA Specialization Download Brochure for India is working");
-}
-			
+			if(indianSuccess.isEnabled()) {
+				softAssert.assertTrue(true, "Indian Brochure flow");
+				test.log(Status.PASS, "BCA Specialization Download Brochure for India is working");
+				System.out.println("BCA Specialization Download Brochure for India is working");
+			}else {
+				test.log(Status.FAIL, "BCA Specialization Download Brochure for India failed: ");
+				softAssert.fail("India flow failed - ");
+				System.out.println("BCA Specialization Download Brochure for India is not working");
+			}
+
 
 			// Close child windows and return to parent
 			driver.close();
@@ -1100,7 +1151,7 @@ if(indianSuccess.isEnabled()) {
 		}
 
 		// ========== INTERNATIONAL FLOW ==========
-		
+
 		Thread.sleep(2000);
 		try {
 			WebElement downloadBrochureBtn = wait.until(ExpectedConditions.elementToBeClickable(bcaBrochure.downloadbrochurElement));
@@ -1147,20 +1198,24 @@ if(indianSuccess.isEnabled()) {
 
 
 			WebElement intlSuccess = wait.until(ExpectedConditions.visibilityOf(bcaBrochure.startapplicationElement));
-if(intlSuccess.isDisplayed()) {
-	softAssert.assertTrue(true, "International Brochure flow");
-	test.log(Status.PASS, "BCA Specialization Download Brochure for International is working");
-	System.out.println("BCA Specialization Download Brochure for International is working");
-}
-			
+			if(intlSuccess.isDisplayed()) {
+				softAssert.assertTrue(true, "International Brochure flow");
+				test.log(Status.PASS, "BCA Specialization Download Brochure for International is working");
+				System.out.println("BCA Specialization Download Brochure for International is working");
+			}else {
+				test.log(Status.FAIL, "BCA Specialization Download Brochure for International failed: ");
+				softAssert.fail("International flow failed - ");
+				System.out.println("BCA Specialization Download Brochure for International is not working");
+			}
+
 
 		} catch (Exception e) {
 			test.log(Status.FAIL, "BCA Specialization Download Brochure for International failed: " + e.getMessage());
 			softAssert.fail("International flow failed - " + e.getMessage());
 			System.out.println("BCA Specialization Download Brochure for International is not working");
 		}
-			softAssert.assertAll();
-		
+		softAssert.assertAll();
+
 
 
 	}
