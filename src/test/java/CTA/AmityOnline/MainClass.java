@@ -24,7 +24,7 @@ import pages.enquireNowPOM;
 public class MainClass extends base{
 
 	//--------------------------Enquire Now------------------------------------------------------------------	
-/*
+
 	@Test(priority = 1)
 	public void enquireNow() throws InterruptedException {
 		test = reports.createTest("Enquire_Now_Indian_International (Header Section)");
@@ -1013,7 +1013,7 @@ public class MainClass extends base{
 	}
 
 
-*/
+
 
 //----------bca-cloud-security-online_Specialization_Download Brochure----------------------------------------------		
 
